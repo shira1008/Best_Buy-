@@ -1,5 +1,6 @@
 import products
 import store
+import promotions
 
 
 def start(store_object):
@@ -7,10 +8,12 @@ def start(store_object):
         print("********")
         print("Store Menu")
         print("----------")
-        print("""1. List all products in store
+        print(
+            """1. List all products in store
 2. Show total amount in store
 3. Make an order
-4. Quit """)
+4. Quit """
+        )
 
         user_input = input("Hello! Choose a number (1-4): ")
         print("_____")
@@ -25,7 +28,6 @@ def start(store_object):
             print(f"Total of {total_amount} items in the store")
 
         elif user_input == "3":
-
             list_of_products = []
             print("When you want to finish the order, enter 'done'.")
             while True:
@@ -35,7 +37,11 @@ def start(store_object):
                     if product_name == "done":
                         break
 
-                    product_amount = int(input("What amount do you want? "))
+                    product_amount = int(
+                        input(
+                            "What amount do you want? if its non stocked product, enter 0: "
+                        )
+                    )
 
                     found_product = False  # to track if a matching product is found
                     for i, product in enumerate(store_object.get_all_products()):
@@ -45,7 +51,8 @@ def start(store_object):
                                 # limited products with over the limit quantity
                                 print("_____")
                                 print(
-                                    f"There are less than {product_amount} items in stock, the limit is {product.quantity} please try again.")
+                                    f"There are less than {product_amount} items in stock, the limit is {product.quantity} please try again."
+                                )
                                 found_product = True  # for the error handling
                             else:
                                 list_of_products.append((product, product_amount))
@@ -74,13 +81,26 @@ def start(store_object):
 def main():
     # setup initial stock of inventory
     # handling products that is created with invalid parameters
+
     try:
         product_list = [
             products.Product("MacBook Air M2", price=1450, quantity=100),
             products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-            products.Product("Google Pixel 7", price=500, quantity=250)
-
+            products.Product("Google Pixel 7", price=500, quantity=250),
+            products.NonStockedProduct("Windows License", price=125),
+            products.LimitedProduct("Shipping", price=10, quantity=250, maximum=1),
         ]
+
+        # Create the promotion object
+        second_half_price = promotions.SecondHalfPrice("Second Half Price")
+        third_one_free = promotions.ThirdOneFree("Third One Free!")
+        thirty_percent = promotions.PercentDiscount("30% off!", percent=30)
+
+        # Add promotions to products
+        product_list[0].set_promotion(second_half_price)
+        product_list[1].set_promotion(third_one_free)
+        product_list[2].set_promotion(thirty_percent)
+
         best_buy = store.Store(product_list)
 
         start(best_buy)
