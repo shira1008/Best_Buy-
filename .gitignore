@@ -1,2 +1,29 @@
-venv/
+# Ignore Python bytecode files
 *.pyc
+__pycache__/
+
+# Ignore environment-specific settings
+.env
+
+# Ignore virtual environment directories
+venv/
+env/
+*.venv/
+
+# Ignore package directory
+dist/
+
+# Ignore local development settings
+settings.ini
+
+# Ignore editor and IDE specific files
+.vscode/
+.idea/
+*.sublime-*
+*.pydevproject
+
+# Ignore logs and temporary files
+*.log
+*.swp
+*.swo
+*.tmp
