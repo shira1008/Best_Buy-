@@ -32,3 +32,6 @@ def test_buy_larger_quantity_than_exists():
 
     with pytest.raises(ValueError):
         product.buy(105)
+
+
+# ============ 5 passed in 0.03s =============
