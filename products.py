@@ -1,3 +1,4 @@
+# handle the product class
 class Product:
     def __init__(self, name, price, quantity):
         if not name:
@@ -74,6 +75,7 @@ class Product:
         return total_price
 
 
+# handle Non Stocked Product and Limited products
 class NonStockedProduct(Product):
     def __init__(self, name, price):
         super().__init__(name, price, quantity=0)

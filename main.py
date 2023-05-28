@@ -3,6 +3,7 @@ import store
 import promotions
 
 
+# menu
 def start(store_object):
     while True:
         print("********")
